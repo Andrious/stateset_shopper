@@ -24,18 +24,18 @@ class _MyCatalogState extends State<MyCatalog> with StateSet {
 
   @override
   Widget builder(BuildContext context) => Scaffold(
-    body: CustomScrollView(
-      slivers: [
-        _MyAppBar(),
-        const SliverToBoxAdapter(child: SizedBox(height: 12)),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => _MyListItem(index),
-          ),
+        body: CustomScrollView(
+          slivers: [
+            _MyAppBar(),
+            const SliverToBoxAdapter(child: SizedBox(height: 12)),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => _MyListItem(index),
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      );
 }
 
 // class MyCatalog extends StatelessWidget {
