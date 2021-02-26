@@ -22,15 +22,16 @@ class _MyCartState extends State<MyCart> with StateSet {
         body: Container(
           color: Colors.yellow,
           child: Column(
-            children: const [
-               Expanded(
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              Expanded(
                 child: Padding(
-                  padding: EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(32),
                   child: _CartList(),
                 ),
               ),
-               Divider(height: 4, color: Colors.black),
-               _CartTotal(),
+              const Divider(height: 4, color: Colors.black),
+              _CartTotal(),
             ],
           ),
         ),
@@ -38,11 +39,10 @@ class _MyCartState extends State<MyCart> with StateSet {
 }
 
 class _CartList extends StatelessWidget {
-  const _CartList({Key key}):super(key: key);
+  _CartList({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      ListView.builder(
+  Widget build(BuildContext context) => ListView.builder(
         itemCount: Cart.items.length,
         itemBuilder: (context, index) => ListTile(
           leading: const Icon(Icons.done),
@@ -52,7 +52,7 @@ class _CartList extends StatelessWidget {
               Cart.remove(Cart.items[index]);
               final _MyCartState state = StateSet.to<_MyCartState>();
               // ignore: invalid_use_of_protected_member
-              state?.setState((){});
+              state?.setState(() {});
             },
           ),
           title: Text(
@@ -64,7 +64,7 @@ class _CartList extends StatelessWidget {
 }
 
 class _CartTotal extends StatelessWidget {
-  const _CartTotal({Key key}) : super(key: key);
+  _CartTotal({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

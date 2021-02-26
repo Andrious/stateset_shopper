@@ -379,10 +379,10 @@ packages:
   state_set:
     dependency: "direct main"
     description:
-      path: "../../../packages/state_set"
-      relative: true
-    source: path
-    version: "2.0.0"
+      name: state_set
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0+2"
   stream_channel:
     dependency: transitive
     description:
