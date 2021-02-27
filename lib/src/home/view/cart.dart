@@ -43,20 +43,20 @@ class _CartList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-        itemCount: Cart.items.length,
+        itemCount: CartController.items.length,
         itemBuilder: (context, index) => ListTile(
           leading: const Icon(Icons.done),
           trailing: IconButton(
             icon: const Icon(Icons.remove_circle_outline),
             onPressed: () {
-              Cart.remove(Cart.items[index]);
+              CartController.remove(CartController.items[index]);
               final _MyCartState state = StateSet.to<_MyCartState>();
               // ignore: invalid_use_of_protected_member
               state?.setState(() {});
             },
           ),
           title: Text(
-            Cart.items[index].name,
+            CartController.items[index].name,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -74,7 +74,7 @@ class _CartTotal extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('\$${Cart.totalPrice}',
+            Text('\$${CartController.totalPrice}',
                 style: Theme.of(context)
                     .textTheme
                     .headline1

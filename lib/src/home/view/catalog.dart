@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:stateset_shopper/src/model.dart';
-
 import 'package:stateset_shopper/src/view.dart';
 
 import 'package:stateset_shopper/src/controller.dart';
@@ -15,13 +13,6 @@ class MyCatalog extends StatefulWidget {
 }
 
 class _MyCatalogState extends State<MyCatalog> with StateSet {
-  //
-  @override
-  void initState() {
-    super.initState();
-    Cart.catalog = CatalogModel();
-  }
-
   @override
   Widget builder(BuildContext context) => Scaffold(
         body: CustomScrollView(
@@ -38,55 +29,26 @@ class _MyCatalogState extends State<MyCatalog> with StateSet {
       );
 }
 
-// class MyCatalog extends StatelessWidget {
-//   MyCatalog({Key key}) : super(key: key) {
-//     Cart.catalog = CatalogModel();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) => StateSetWidget(
-//         child: Scaffold(
-//           body: CustomScrollView(
-//             slivers: [
-//               _MyAppBar(),
-//               const SliverToBoxAdapter(child: SizedBox(height: 12)),
-//               SliverList(
-//                 delegate: SliverChildBuilderDelegate(
-//                   (context, index) => _MyListItem(index),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       );
-// }
-
 class _AddButton extends StatefulWidget {
   const _AddButton({Key key, @required this.item}) : super(key: key);
-  final Item item;
+  final CartController item;
   @override
   State createState() => _AddButtonState();
 }
 
 class _AddButtonState extends State<_AddButton> with StateSet {
-  Cart cart;
-
-  @override
-  void initState() {
-    super.initState();
-    cart = Cart(item: widget.item, state: this);
-  }
-
   @override
   Widget build(BuildContext context) {
     //
-    final isInCart = Cart.items.contains(widget.item);
+    final item = widget.item;
+
+    final isInCart = CartController.contains(item);
 
     // Rebuilds if 'root' State object is rebuilt.
     attachStateSet(context);
 
     return FlatButton(
-      onPressed: isInCart ? null : () => cart.add(),
+      onPressed: isInCart ? null : () => item.add(this),
       splashColor: Theme.of(context).primaryColor,
       child: isInCart
           ? const Icon(Icons.check, semanticLabel: 'ADDED')
@@ -110,17 +72,14 @@ class _MyAppBar extends StatelessWidget {
 }
 
 class _MyListItem extends StatelessWidget {
-  _MyListItem(this.index, {Key key})
-      : catalog = CatalogModel(),
-        super(key: key);
+  const _MyListItem(this.index, {Key key}) : super(key: key);
 
   final int index;
-  final CatalogModel catalog;
 
   @override
   Widget build(BuildContext context) {
     //
-    final item = catalog.getByPosition(index);
+    final cartItem = CartController.getByPosition(index);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -131,16 +90,18 @@ class _MyListItem extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1,
               child: Container(
-                color: item.color,
+                color: cartItem.color,
               ),
             ),
             const SizedBox(width: 24),
             Expanded(
-              child:
-                  Text(item.name, style: Theme.of(context).textTheme.headline6),
+              child: Text(
+                cartItem.name,
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
             const SizedBox(width: 24),
-            _AddButton(item: item),
+            _AddButton(item: cartItem),
           ],
         ),
       ),

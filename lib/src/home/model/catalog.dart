@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/material.dart';
+import 'package:stateset_shopper/src/view.dart';
+
+import 'package:stateset_shopper/src/controller.dart';
 
 /// A proxy of the catalog of items the user can buy.
 ///
@@ -12,9 +14,6 @@ import 'package:flutter/material.dart';
 /// For simplicity, the catalog is expected to be immutable (no products are
 /// expected to be added, removed or changed during the execution of the app).
 class CatalogModel {
-  factory CatalogModel() => _this ??= CatalogModel._();
-  CatalogModel._();
-  static CatalogModel _this;
 
   final List<String> _itemNames = [
     'Code Smell',

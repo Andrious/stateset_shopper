@@ -1,4 +1,8 @@
 
+## 0.2.0
+ February 26, 2021
+- Remove Item class from Interface
+
 ## 0.1.1+2
  February 25, 2021
 - Format .
